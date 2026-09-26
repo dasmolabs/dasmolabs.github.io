@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="../assets/css/styles.css?v=20260926a">
+  <link rel="stylesheet" href="../assets/css/styles.css?v=20260926b">
 </head>
 <body data-page="home">
   <noscript><div style="padding:1rem;text-align:center;background:#FFF7E6;border-bottom:1px solid #EADFC8">This site uses JavaScript to display its content. Please enable JavaScript in your browser.</div></noscript>
@@ -38,10 +38,15 @@
          hero (so the CMS still edits it). id="about" keeps the Home ▾ deep link alive. -->
     <section class="hero" id="about">
       <div class="wrap hero__inner">
-        <h1>Welcome to <span class="accent">DASMO Labs 1.0</span></h1>
-        <p class="hero__en">Dong-A Smart MObility Labs</p>
-        <p class="hero__ko">Transportation Engineering Laboratory, Dong-A University</p>
-        <div class="hero__lead" id="home-intro"></div>
+        <div class="hero__text">
+          <h1>Welcome to <span class="accent">DASMO Labs 1.0</span></h1>
+          <p class="hero__en">Dong-A Smart MObility Labs</p>
+          <p class="hero__ko">Transportation Engineering Laboratory, Dong-A University</p>
+          <div class="hero__lead" id="home-intro"></div>
+        </div>
+        <!-- 최신 소식 슬라이드 — data/slides.json(CMS '🖼️ 홈 소식 슬라이드').
+             게시할 슬라이드가 없으면 숨은 채로 남고 히어로는 예전 모양 그대로다. -->
+        <div class="hero-slides" id="home-slides" hidden></div>
       </div>
     </section>
 
@@ -77,6 +82,6 @@
   </main>
 
   <div data-footer></div>
-  <script src="../assets/js/app.js?v=20260926a"></script>
+  <script src="../assets/js/app.js?v=20260926b"></script>
 </body>
 </html>

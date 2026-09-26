@@ -11,7 +11,8 @@
 
    The site shows 8 main tabs; each academic-record tab has its own page
    and data file:
-     People       = professor.json + members.json (+ apply.json, news 모집)
+     Home         = site.json (+ slides.json — hero news slideshow)
+     People      = professor.json + members.json (+ apply.json, news 모집)
      Projects     = projects.json  (research areas live on Home only)
      Papers       = publications.json   (publications.html)
      Conferences  = conferences.json
@@ -68,6 +69,8 @@
     patNone: "No patents yet.", awdNone: "No awards yet.", phNone: "No photos yet.",
     phPlace: "Venue", phPeople: "With",
     lbLabel: "Photo viewer", lbClose: "Close", lbPrev: "Previous photo", lbNext: "Next photo",
+    slLabel: "Latest news", slPrev: "Previous news", slNext: "Next news",
+    slPause: "Pause slideshow", slPlay: "Play slideshow", slGo: "Show news",
     pubLabels: { International: "International Journals & Proceedings", Domestic: "Domestic Journals", Other: "Other", Books: "Books" },
     pubChips: { International: "International", Domestic: "Domestic", Other: "Other", Books: "Books" },
     confLabels: { International: "International", Domestic: "Domestic" },
@@ -121,6 +124,8 @@
     phNone: "등록된 사진이 없습니다.",
     phPlace: "장소", phPeople: "참여",
     lbLabel: "사진 크게 보기", lbClose: "닫기", lbPrev: "이전 사진", lbNext: "다음 사진",
+    slLabel: "최신 소식", slPrev: "이전 소식", slNext: "다음 소식",
+    slPause: "자동 넘김 멈춤", slPlay: "자동 넘김 재생", slGo: "소식 보기",
     pubLabels: { International: "International Journals & Proceedings", Domestic: "국내 논문", Other: "기타", Books: "저서" },
     pubChips: { International: "International", Domestic: "Domestic", Other: "기타", Books: "저서" },
     confLabels: { International: "International", Domestic: "Domestic (국내)" },
@@ -471,6 +476,11 @@
       introEl.innerHTML = parts + photo;
     }
 
+    // latest-news slideshow in the hero's right margin (slides.json, CMS-editable).
+    // Not awaited: the rest of Home must not wait on it, and a missing file just
+    // leaves the box hidden (the hero then looks exactly as before).
+    mountHeroSlides();
+
     // research-area cards (Home only — the Projects page lists the projects)
     const topicsEl = $("#home-topics");
     if (topicsEl) topicsEl.innerHTML = buildResearchTopics(site);
@@ -500,6 +510,111 @@
   function recruitOpen(n) {
     if (!n.deadline) return true;
     return String(n.deadline).slice(0, 10) >= todayStr();
+  }
+
+  /* ----- Home hero: latest-news slideshow (data/slides.json) -----
+     slides.json has no data/en/ copy — like photos.json, each slide carries its
+     own *_en fields. Shown in file order (the CMS adds new ones at the top);
+     a slide whose optional `until` date has passed drops out by itself. */
+  const SLIDE_MS = 5000;
+
+  async function mountHeroSlides() {
+    const box = $("#home-slides");
+    if (!box) return;
+    const data = await fetchData("slides");
+    const slides = (data && Array.isArray(data.slides) ? data.slides : [])
+      .filter(s => s && s.image && (!s.until || String(s.until).slice(0, 10) >= todayStr()));
+    if (!slides.length) return;
+    box.innerHTML = buildHeroSlides(slides);
+    box.hidden = false;
+    box.closest(".hero__inner").classList.add("has-slides");
+    initHeroSlides(box, slides.length);
+  }
+
+  function buildHeroSlides(slides) {
+    const n = slides.length;
+    const items = slides.map((s, i) => {
+      const title = (EN && s.title_en) || s.title || "";
+      const text = (EN && s.text_en) || s.text || "";
+      const cap = (title || text)
+        ? `<span class="hs__cap">${title ? `<strong>${esc(title)}</strong>` : ""}${text ? `<span>${esc(text)}</span>` : ""}</span>` : "";
+      const inner = `<img src="${cssUrl(imgSrc(s.image))}" alt="${esc(title)}"${i ? ' loading="lazy"' : ""}>${cap}`;
+      const attrs = `class="hs__slide${i ? "" : " is-on"}" role="group" aria-roledescription="slide" aria-label="${i + 1} / ${n}"${i ? ' aria-hidden="true"' : ""}`;
+      if (!s.link) return `<div ${attrs}>${inner}</div>`;
+      const ext = /^https?:\/\//.test(s.link);
+      return `<a ${attrs} href="${esc(s.link)}"${ext ? ' target="_blank" rel="noopener"' : ""}${i ? ' tabindex="-1"' : ""}>${inner}</a>`;
+    }).join("");
+    const controls = n < 2 ? "" : `<div class="hs__bar">
+        <button type="button" class="hs__btn hs__prev" aria-label="${esc(T.slPrev)}">‹</button>
+        <span class="hs__dots">${slides.map((_, i) =>
+          `<button type="button" class="hs__dot${i ? "" : " is-on"}" data-i="${i}" aria-label="${esc(T.slGo)} ${i + 1}"${i ? "" : ' aria-current="true"'}></button>`).join("")}</span>
+        <button type="button" class="hs__btn hs__next" aria-label="${esc(T.slNext)}">›</button>
+        <button type="button" class="hs__btn hs__play" aria-label="${esc(T.slPause)}">❚❚</button>
+      </div>`;
+    return `<div class="hs" role="region" aria-roledescription="carousel" aria-label="${esc(T.slLabel)}">
+      <div class="hs__view">${items}</div>${controls}</div>`;
+  }
+
+  function initHeroSlides(box, n) {
+    if (n < 2) return;
+    const slides = $$(".hs__slide", box), dots = $$(".hs__dot", box);
+    const playBtn = $(".hs__play", box);
+    let cur = 0, timer = null, hover = false;
+    // reduced-motion users get the controls but no automatic advance
+    let playing = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    function show(i) {
+      cur = (i + n) % n;
+      slides.forEach((el, k) => {
+        const on = k === cur;
+        el.classList.toggle("is-on", on);
+        if (on) el.removeAttribute("aria-hidden"); else el.setAttribute("aria-hidden", "true");
+        if (el.tagName === "A") { if (on) el.removeAttribute("tabindex"); else el.setAttribute("tabindex", "-1"); }
+      });
+      dots.forEach((d, k) => {
+        d.classList.toggle("is-on", k === cur);
+        if (k === cur) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current");
+      });
+    }
+    // (re)start the countdown so a manual move always gets a full interval
+    function arm() {
+      clearInterval(timer);
+      timer = null;
+      if (playing && !hover) timer = setInterval(() => { if (!document.hidden) show(cur + 1); }, SLIDE_MS);
+    }
+    function setPlaying(p) {
+      playing = p;
+      playBtn.textContent = p ? "❚❚" : "▶";
+      playBtn.setAttribute("aria-label", p ? T.slPause : T.slPlay);
+      arm();
+    }
+
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      if (b.classList.contains("hs__prev")) show(cur - 1);
+      else if (b.classList.contains("hs__next")) show(cur + 1);
+      else if (b.classList.contains("hs__dot")) show(+b.dataset.i);
+      else if (b === playBtn) { setPlaying(!playing); return; }
+      arm();
+    });
+    // hovering or keyboard focus inside holds the slide still
+    box.addEventListener("mouseenter", () => { hover = true; arm(); });
+    box.addEventListener("mouseleave", () => { hover = false; arm(); });
+    box.addEventListener("focusin", () => { hover = true; arm(); });
+    box.addEventListener("focusout", (e) => { if (!box.contains(e.relatedTarget)) { hover = false; arm(); } });
+    // swipe on touch screens (a tap still follows the slide's link)
+    let x0 = null;
+    const view = $(".hs__view", box);
+    view.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    view.addEventListener("touchend", (e) => {
+      if (x0 == null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) { show(cur + (dx < 0 ? 1 : -1)); arm(); }
+    });
+
+    setPlaying(playing);
   }
 
   /* ====================================================================

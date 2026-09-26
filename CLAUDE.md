@@ -97,7 +97,7 @@ KO⇄EN 토글은 현재 페이지·현재 소탭(해시)을 유지한 채 전�
 **필터 엔진** — `filterBlock(cfg)`: 구분 칩 + 연도 드롭다운(`yearOptions`) + **텍스트 검색(`getText`)**. `cfg.yearsFollowCat`(Projects 전용)이면 칩을 바꿀 때마다 `applyFilter`가 **연도 옵션을 그 칩의 항목들로 다시 그린다**(사라진 연도가 선택돼 있었다면 '전체 연도'로 되돌림). `applyFilter`/`wireFilters`(위임 핸들러) + **`applyHashToFilters`**(URL 해시 → 칩/연도 자동 선택 — 헤더 드롭다운 딥링크의 핵심. `wireFilters`는 호출될 때마다 이걸 다시 적용한다). Publications/Conferences/Photos/Patents/Awards/Projects(연구 과제)가 사용 — **Awards·Photos는 `cats: null`이라 구분 칩 줄이 없고 연도 + 검색만** 나온다. 목록은 렌더 전에 `sortByDateDesc`로 날짜 내림차순 정렬(편집 순서 실수를 코드가 흡수) — **단 연구 과제는 예외로 파일 순서 그대로** 쓴다(영문 `period`가 `Apr 2026 – Mar 2028` 형식이라 `dateKey`가 월을 못 읽음).
 
 **페이지 렌더 함수** (`PAGES` 맵 → `body[data-page]` 디스패치)
-- `renderHome` — 소개(+`about_photo`)/연구/강의(문자열·`{name,link}` 겸용)/**오시는 길(`buildLocation`)**. **2026-07-27: 별도 About 섹션을 없애고 `#home-intro`(intro1+intro2)를 히어로 안으로 넣었다** — 히어로가 곧 연구실 소개이고, `<section class="hero" id="about">`이 소탭 `about` 딥링크를 받는다. 홈의 남은 3개 섹션 제목은 한글을 지우고 영문만 제목 크기로 키운 `.section__title--en`(RESEARCH / CLASSES / LOCATION) — **People 페이지 제목은 기존 eyebrow+한글 구조 그대로**다.
+- `renderHome` — 소개(+`about_photo`)/**히어로 소식 슬라이드(`mountHeroSlides`→`buildHeroSlides`+`initHeroSlides`, `slides.json`, await 하지 않음)**/연구/강의(문자열·`{name,link}` 겸용)/**오시는 길(`buildLocation`)**. **2026-07-27: 별도 About 섹션을 없애고 `#home-intro`(intro1+intro2)를 히어로 안으로 넣었다** — 히어로가 곧 연구실 소개이고, `<section class="hero" id="about">`이 소탭 `about` 딥링크를 받는다. 홈의 남은 3개 섹션 제목은 한글을 지우고 영문만 제목 크기로 키운 `.section__title--en`(RESEARCH / CLASSES / LOCATION) — **People 페이지 제목은 기존 eyebrow+한글 구조 그대로**다.
 - `renderPeople` — 지도교수(`links` 연구자 프로필 버튼, media `date`+`source`)/구성원(관심분야 태그, group×level 미매칭도 '기타'로 표시)/졸업생/지원(**`apply.json` 데이터 + 현재 모집 공고 본문 + FAQ**).
 - `renderProjects` / `renderPublications`(Papers) / `renderConferences` / `renderPhotos` / `renderPatents` / `renderAwards` — **여섯 개 모두 소탭 없이 `filterBlock` 하나를 바로 렌더**한다. `renderPhotos`는 행사별 사진 앨범 + 라이트박스(`initLightbox`)를 얹는다. `renderProjects`는 구 `#areas` 딥링크만 홈으로 넘겨준 뒤 연구 과제 목록(진행 중/완료 칩 + 연도 + 검색)을 그린다.
 
@@ -112,6 +112,7 @@ KO⇄EN 토글은 현재 페이지·현재 소탭(해시)을 유지한 채 전�
 ## 5. 데이터 스키마 (`data/*.json` — 영문판은 `data/en/` 동일 구조)
 
 - **`site.json`** — `lab_abbr`, `lab_name_ko/en`, `tagline_en`, `intro1/2`, `about_photo`(선택), `research_topics[]`{icon,title,desc,tags[]}, `classes_undergrad/grad[]`(**`{name, link?}` 객체** — 문자열도 하위호환), `address`, `phone`, `email`, `office`, `transit_info`, `map_kakao/naver/google`.
+- **`slides.json`** — `slides[]`{image, title?, `title_en?`, text?, `text_en?`, link?, `until?`(YYYY-MM-DD — 지나면 자동으로 빠짐)}. 홈 히어로 오른쪽 **최신 소식 슬라이드**(2026-09-26 추가). 영문 파일 없음(`*_en` 방식). **파일 순서 그대로** 표시(CMS가 새 항목을 맨 위에 넣음). 5초마다 자동 넘김, 호버·포커스 시 멈춤, 동작 줄이기 설정이면 자동 넘김 없음. 게시할 슬라이드가 0개면 칸이 숨고 히어로가 예전 1단 모양으로 돌아간다(`.hero__inner.has-slides`가 붙을 때만 2단). CMS 업로드 폴더 `assets/uploads/slides/`.
 - **`apply.json`** — `intro`, `items[]`{label,hint}, `faq[]`{q,a} — People→지원 탭 내용(CMS 편집 가능).
 - **`professor.json`** — 기본 정보 + `links[]`{label,url}(Google Scholar 등) + `education[]`, `careers[]`, `societies[]`, `media[]`{**date, source**, title, url}, `committees[]`.
 - **`members.json`** — `members[]`{name_ko, name_en, group("current"|"alumni"), level("PhD"|"Master"|"Undergraduate"|"Bachelor"), photo, email(재학생만 표시·졸업생은 값을 비움 — 화면에 안 나오며 sync 스크립트가 자동으로 비움), affiliation, period, grad_year, degree, thesis, `interests[]`}.
@@ -124,7 +125,7 @@ KO⇄EN 토글은 현재 페이지·현재 소탭(해시)을 유지한 채 전�
 - **`patents.json`** — `patents[]`{category("Application"|"Registration"|"Software"), name, `name_en?`, scope, type, date, number, inventors, `inventors_en?`}.
 - **`awards.json`** — `awards[]`{date, title_ko, title_en?, venue, `venue_en?`}.
 
-> **`*_en` 필드는 이 5종(논문·학술대회·행사 사진·특허·수상)에만 있는 장치다.** 이들은 `data/en/` 파일이 없어 국·영문이 같은 파일을 쓰므로,
+> **`*_en` 필드는 이 5종(논문·학술대회·행사 사진·특허·수상) + 홈 슬라이드에만 있는 장치다.** 이들은 `data/en/` 파일이 없어 국·영문이 같은 파일을 쓰므로,
 > 항목마다 붙은 영문 칸으로 언어를 가른다(`citation_en`·`conference_en`·`name_en`·`inventors_en`·`title_en`·`venue_en`·`description_en`).
 > 비어 있으면 국문 값이 그대로 영문 페이지에 나온다 — 즉 **비우는 것이 곧 한글 노출**이다.
 > `citation_en`에도 연도 `(YYYY)` 괄호를 유지할 것(`pubYear`가 영문 페이지 연도 필터를 이 괄호로 만든다).
@@ -190,6 +191,7 @@ KO⇄EN 토글은 현재 페이지·현재 소탭(해시)을 유지한 채 전�
 - **모집 공고 올리기/내리기** → `data/news.json`에 category "모집"(EN `Recruiting`) + `deadline`(선택). People→지원 탭에 콜아웃으로 뜨고 마감일이 지나면 자동으로 내려간다. 그 외 분류의 소식 글은 News 폐지 후 사이트에 노출되지 않는다.
 - **교수 정보/연구자 링크** → `data/professor.json`(+en). Scholar/ORCID는 `links[]`에.
 - **지원 안내·FAQ** → `data/apply.json`(+en).
+- **홈 최신 소식 슬라이드** → CMS `🖼️ 홈 소식 슬라이드`(`data/slides.json`). 사진 + 제목/한 줄 설명(+영문) + 링크(선택) + 게시 종료일(선택). 4:3 가로 사진이 잘림 없이 맞는다.
 - **연구 분야/강의/소개/오시는 길** → `data/site.json`(+en). **연구 분야는 홈에만** 나온다(Projects 탭에서 중복 제거, 2026-07-27).
 - **행사 사진 올리기** → CMS `📷 행사 사진`에서 행사 추가(행사일 + 행사명 + 장소·참여자(선택) + 사진 여러 장 동시 업로드 — `assets/uploads/photos/`에 저장). 파일로 고칠 땐 `data/photos.json` 하나면 된다(영문 파일 없음). 정렬은 date 내림차순 자동이라 순서 걱정이 없고, 영문 문구는 `title_en`·`place_en`·`people_en`·`description_en`(비우면 국문이 그대로 노출). 행사 유형(구분) 칸은 없다 — **행사일이 곧 표시 순서**다.
 - **연구 과제 추가** → `data/projects.json` **+ `data/en/projects.json` 동시 수정**. 맨 위(최신)에 넣으면 그 순서대로 보인다(코드가 재정렬하지 않음). 연도 필터는 `period`의 **첫** 4자리, 진행 중/완료 구분은 `period`의 **끝 월**로 자동 판정되므로 **기간 표기 형식만 지키면 손댈 것이 없다**(끝나는 달이 지나면 다음 달에 저절로 '완료'로 넘어감).

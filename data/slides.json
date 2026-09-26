@@ -1,0 +1,28 @@
+{
+  "slides": [
+    {
+      "image": "assets/uploads/photos/20260313-kst94-04.jpg",
+      "title": "대한교통학회 춘계학술대회 우수논문상 수상",
+      "title_en": "Best Paper Award at the KST 2026 Spring Conference",
+      "text": "「긴급차량 우선신호 운영방식에 따른 통행시간 단축 효과분석」",
+      "text_en": "Travel Time Reduction by Emergency Vehicle Signal Preemption",
+      "link": "photos.html"
+    },
+    {
+      "image": "assets/uploads/photos/20260313-kst94-01.jpg",
+      "title": "2026 춘계학술대회에서 3편 발표",
+      "title_en": "Three papers presented at the KST 2026 Spring Conference",
+      "text": "2026. 3. 13. · 광주 김대중컨벤션센터",
+      "text_en": "Mar 13, 2026 · Gwangju",
+      "link": "photos.html"
+    },
+    {
+      "image": "assets/uploads/photos/20241121-its-seminar-01.jpg",
+      "title": "한국ITS학회 부울경지회 세미나 참석",
+      "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar",
+      "text": "부울경 스마트 모빌리티 사업의 현재와 미래",
+      "text_en": "Smart mobility projects in the region",
+      "link": "photos.html"
+    }
+  ]
+}

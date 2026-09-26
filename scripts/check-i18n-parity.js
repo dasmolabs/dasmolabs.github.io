@@ -165,6 +165,8 @@ const cover = [
   ["conferences", "conferences", "conference", "conference_en", "학술대회명"],
   ["photos", "events", "title", "title_en", "행사명"],
   ["photos", "events", "description", "description_en", "행사 설명"],
+  ["slides", "slides", "title", "title_en", "홈 슬라이드 제목"],
+  ["slides", "slides", "text", "text_en", "홈 슬라이드 설명"],
   ["patents", "patents", "name", "name_en", "지식재산권명"],
   ["patents", "patents", "inventors", "inventors_en", "발명인"],
   ["awards", "awards", "venue", "venue_en", "시상·학술대회"],
