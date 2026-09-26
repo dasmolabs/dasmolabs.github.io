@@ -6,30 +6,30 @@
       "title_en": "2026 Spring Conference of the Korean Society of Transportation",
       "place": "광주 김대중컨벤션센터",
       "place_en": "Kimdaejung Convention Center, Gwangju",
-      "people": "김태규, 이은정, 정지효",
-      "people_en": "Taegyu Kim, Eunjung Lee, Jihyo Jung",
+      "people": "김회경, 정지효, 이정빈, 조수린, 김동은",
+      "people_en": "",
       "description": "연구실에서 3편을 발표했고, 「긴급차량 우선신호 운영방식에 따른 통행시간 단축 효과분석」이 우수논문상을 받았습니다.",
       "description_en": "The lab presented three papers, and \"Analysis of Travel Time Reduction Effects by Emergency Vehicle Signal Preemption Operation Modes\" received the Best Paper Award.",
       "photos": [
         {
-          "src": "assets/uploads/photos/20260313-kst94-01.jpg",
+          "caption_en": "Lab members at the conference",
           "caption": "학술발표회 참가 단체사진",
-          "caption_en": "Lab members at the conference"
+          "src": "assets/uploads/photos/20260313-kst94-01.jpg"
         },
         {
-          "src": "assets/uploads/photos/20260313-kst94-02.jpg",
+          "caption_en": "Presentation — Evaluation of Punctuality Based on Bus Operation Systems",
           "caption": "「버스 운영체계에 따른 정시성 평가와 영향요인 분석」 발표",
-          "caption_en": "Presentation — Evaluation of Punctuality Based on Bus Operation Systems"
+          "src": "assets/uploads/photos/20260313-kst94-02.jpg"
         },
         {
-          "src": "assets/uploads/photos/20260313-kst94-03.jpg",
+          "caption_en": "Presentation — Impact of Speed Bumps on Emergency Vehicle Dispatch",
           "caption": "「과속방지턱이 긴급차량 출동에 미치는 실증적 영향 분석」 발표",
-          "caption_en": "Presentation — Impact of Speed Bumps on Emergency Vehicle Dispatch"
+          "src": "assets/uploads/photos/20260313-kst94-03.jpg"
         },
         {
-          "src": "assets/uploads/photos/20260313-kst94-04.jpg",
+          "caption_en": "Presentation — Travel Time Reduction by Emergency Vehicle Signal Preemption (Best Paper Award)",
           "caption": "「긴급차량 우선신호 운영방식에 따른 통행시간 단축 효과분석」 발표 — 우수논문상 수상",
-          "caption_en": "Presentation — Travel Time Reduction by Emergency Vehicle Signal Preemption (Best Paper Award)"
+          "src": "assets/uploads/photos/20260313-kst94-04.jpg"
         }
       ]
     },
