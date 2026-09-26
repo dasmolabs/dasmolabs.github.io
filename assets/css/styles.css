@@ -247,16 +247,23 @@ ul { margin: 0; padding: 0; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; }
 
 /* 2026-09: 히어로 오른쪽 여백의 '최신 소식' 슬라이드(data/slides.json).
-   슬라이드가 있을 때만 JS가 .has-slides를 붙여 [소개 글 | 슬라이드] 2단으로 펼친다
-   — 글 칸은 예전 폭(760px) 그대로, 전체는 .wrap 최대폭(1140px). 없으면 예전 모양. */
+   슬라이드가 있을 때만 JS가 .has-slides를 붙여 [소개 글 | 슬라이드] 2단으로 펼친다. 없으면 예전 모양.
+   히어로만 .wrap(1140px)보다 넓게 — 화면 폭의 90%로 1140→1360px까지 자란다(좌우 여백 5vw 유지).
+   슬라이드 칸 = 전체 − 글 칸(52vw, 최대 732px) − 간격 48px. 제목 "Welcome to DASMO Labs 1.0"이
+   한 줄에 들어갈 글 폭을 먼저 잡고 남는 만큼 슬라이드가 자란다 — 제목 글자 크기도 3.9vw로 함께 줄어
+   1081~1440px 어디서나 제목 한 줄 + 슬라이드 ≈ 420~500px, 1536px↑은 최대 560×420.
+   2026-09-26 폭별 실측으로 정함. */
 .hero__inner.has-slides {
-  max-width: var(--maxw); display: grid; align-items: center;
-  grid-template-columns: minmax(0, 1fr) 340px; gap: 2.5rem;
+  width: clamp(min(100% - 2.5rem, var(--maxw)), 100% - 10vw, 1360px); max-width: none; display: grid; align-items: center;
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 100% - min(52vw, 732px) - 3rem, 560px); gap: 3rem;
+}
+@media (min-width: 1081px) {   /* 2단일 때 제목 폭 ≈ 13 × 글자 크기 → 3.9vw면 ≈ 50.7vw로 글 칸(52vw) 안에 한 줄 */
+  .hero__inner.has-slides h1 { font-size: min(3.9vw, 3.5rem); }
 }
 .hero__inner.has-slides .hero__text { max-width: 760px; }
 @media (max-width: 1080px) {   /* 햄버거 메뉴 구간부터는 글 아래로 내려 쌓는다 */
   .hero__inner.has-slides { grid-template-columns: minmax(0, 1fr); gap: 2rem; max-width: 760px; }
-  .hero__inner.has-slides .hero-slides { width: 100%; max-width: 480px; }
+  .hero__inner.has-slides .hero-slides { width: 100%; max-width: 560px; }
 }
 .hs__view {
   position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;
