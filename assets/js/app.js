@@ -66,8 +66,6 @@
     projLoadFail: "Could not load project information.",
     pubNone: "No publications yet.", confNone: "No conference presentations yet.",
     patNone: "No patents yet.", awdNone: "No awards yet.", phNone: "No photos yet.",
-    phLabels: { Conference: "Conference", Seminar: "Seminar & Workshop", Fieldwork: "Fieldwork & Experiment", Lab: "Lab Life" },
-    phChips: { Conference: "Conference", Seminar: "Seminar", Fieldwork: "Fieldwork", Lab: "Lab Life" },
     phPlace: "Venue", phPeople: "With",
     lbLabel: "Photo viewer", lbClose: "Close", lbPrev: "Previous photo", lbNext: "Next photo",
     pubLabels: { International: "International Journals & Proceedings", Domestic: "Domestic Journals", Other: "Other", Books: "Books" },
@@ -121,8 +119,6 @@
     pubNone: "등록된 논문이 없습니다.", confNone: "등록된 학술대회 발표가 없습니다.",
     patNone: "등록된 특허가 없습니다.", awdNone: "등록된 수상 실적이 없습니다.",
     phNone: "등록된 사진이 없습니다.",
-    phLabels: { Conference: "학술대회", Seminar: "세미나·워크숍", Fieldwork: "현장조사·실험", Lab: "연구실 활동" },
-    phChips: { Conference: "학술대회", Seminar: "세미나", Fieldwork: "현장조사", Lab: "연구실 활동" },
     phPlace: "장소", phPeople: "참여",
     lbLabel: "사진 크게 보기", lbClose: "닫기", lbPrev: "이전 사진", lbNext: "다음 사진",
     pubLabels: { International: "International Journals & Proceedings", Domestic: "국내 논문", Other: "기타", Books: "저서" },
@@ -206,12 +202,6 @@
     { label: T.patChips.Registration, key: "Registration" },
     { label: T.patChips.Software, key: "Software" },
   ];
-  // Photos: the dropdown is the event type. The year still filters on the
-  // page itself (and #2026 style deep links keep working — applyHashToFilters
-  // matches a hash against the chips first, then the year <select>).
-  const PHOTO_CATS = ["Conference", "Seminar", "Fieldwork", "Lab"];
-  SUBNAV["photos.html"] = [{ label: T.fbAll, key: "all" }]
-    .concat(PHOTO_CATS.map(k => ({ label: T.phChips[k], key: k })));
   // Projects has no category field in the data: the chips are the project
   // status derived from the period's end date (projStatus). Picking 완료 then
   // narrows further by year — that year list follows the chip (yearsFollowCat).
@@ -393,14 +383,15 @@
       </footer>`;
   }
 
-  // Awards has no category axis, so its sub-tabs are the years that actually
-  // appear in the data — that way no dropdown entry lands on an empty list.
-  // (fetchData is memoised, so it costs one small request per page load and
-  // none at all on the Awards page itself.)
+  // Awards and Photos have no category axis, so their sub-tabs are the years
+  // that actually appear in the data — that way no dropdown entry lands on an
+  // empty list. (fetchData is memoised, so each costs one small request per
+  // page load and none at all on the page itself.)
   async function yearSubnav(page, dataName, listKey) {
     const d = await fetchData(dataName);
     const list = (d && Array.isArray(d[listKey])) ? d[listKey] : [];
-    const years = Array.from(new Set(list.map(x => yearIn(x.date)).filter(Boolean)))
+    // every page's header waits on this, so a stray null entry must not throw
+    const years = Array.from(new Set(list.map(x => yearIn(x && x.date)).filter(Boolean)))
       .sort((a, b) => Number(b) - Number(a)).slice(0, 6);
     if (!years.length) return;
     SUBNAV[page] = [{ label: T.fbAll, key: "all" }]
@@ -408,7 +399,10 @@
   }
 
   async function mountChrome(site) {
-    await yearSubnav("awards.html", "awards", "awards");
+    await Promise.all([
+      yearSubnav("awards.html", "awards", "awards"),
+      yearSubnav("photos.html", "photos", "events"),
+    ]);
     const h = $("[data-header]"); if (h) h.outerHTML = buildHeader();
     const f = $("[data-footer]"); if (f) f.outerHTML = buildFooter(site);
     initNav();
@@ -1049,8 +1043,6 @@
       const place = (EN && ev.place_en) || ev.place || "";
       const people = peopleText(ev);
       const photos = photoList(ev);
-      const cat = T.phLabels[ev.category]
-        ? `<span class="photo-event__cat">${esc(T.phLabels[ev.category])}</span>` : "";
       const meta = [
         ev.date ? `<span class="date">${esc(fmtDate(ev.date))}</span>` : "",
         place ? esc(T.phPlace) + " " + esc(place) : "",
@@ -1063,7 +1055,7 @@
         ` aria-label="${esc(title)} — ${i + 1}/${photos.length}${p.caption ? " · " + esc(p.caption) : ""}">` +
         `<img src="${cssUrl(imgSrc(p.src))}" alt="" loading="lazy"></button>`).join("");
       return `<section class="photo-event">
-        <div class="group-head"><h3>${cat}${esc(title)}</h3><span class="count">${photos.length}${EN ? "" : "장"}</span></div>
+        <div class="group-head"><h3>${esc(title)}</h3><span class="count">${photos.length}${EN ? "" : "장"}</span></div>
         ${meta ? `<p class="photo-event__meta">${meta}</p>` : ""}
         ${desc ? `<p class="photo-event__desc">${escMultiline(desc)}</p>` : ""}
         ${photos.length ? `<div class="photo-strip">
@@ -1374,12 +1366,10 @@
     if (!root) return;
     const events = (data && Array.isArray(data.events))
       ? sortByDateDesc(data.events, e => e.date) : [];
+    // 행사 유형(구분) 없이 최신 행사부터 시간순으로만 보여 준다(2026-09-26 요청)
     root.innerHTML = filterBlock({
-      items: events,
-      // 다른 탭과 달리 데이터에 없는 유형도 칩으로 보여 준다(2026-09-07 요청) —
-      // 어떤 활동을 기록하는 연구실인지 목록이 비어 있어도 드러나도록.
-      cats: PHOTO_CATS.map(k => ({ key: k, label: T.phChips[k] })),
-      getCat: e => e.category, getYear: e => yearIn(e.date),
+      items: events, cats: null,
+      getCat: () => "", getYear: e => yearIn(e.date),
       getText: e => [e.title, e.title_en, e.description, e.description_en,
                      e.place, e.place_en, listText(e.people), listText(e.people_en)]
                     .filter(Boolean).join(" "),

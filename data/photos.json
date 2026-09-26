@@ -2,7 +2,6 @@
   "events": [
     {
       "date": "2026-03-13",
-      "category": "Conference",
       "title": "대한교통학회 2026 춘계학술대회 (제94회 학술발표회)",
       "title_en": "2026 Spring Conference of the Korean Society of Transportation",
       "place": "광주 김대중컨벤션센터",
@@ -36,7 +35,6 @@
     },
     {
       "date": "2024-11-21",
-      "category": "Seminar",
       "title": "한국ITS학회 부울경지회 세미나 — 부울경 스마트 모빌리티 사업의 현재와 미래",
       "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar — Smart Mobility Projects in the Region",
       "place": "부경대학교 환경해양관",
