@@ -112,7 +112,7 @@ KO⇄EN 토글은 현재 페이지·현재 소탭(해시)을 유지한 채 전�
 ## 5. 데이터 스키마 (`data/*.json` — 영문판은 `data/en/` 동일 구조)
 
 - **`site.json`** — `lab_abbr`, `lab_name_ko/en`, `tagline_en`, `intro1/2`, `about_photo`(선택), `research_topics[]`{icon,title,desc,tags[]}, `classes_undergrad/grad[]`(**`{name, link?}` 객체** — 문자열도 하위호환), `address`, `phone`, `email`, `office`, `transit_info`, `map_kakao/naver/google`.
-- **`slides.json`** — `slides[]`{image, title?, `title_en?`, text?, `text_en?`, link?, `until?`(YYYY-MM-DD — 지나면 자동으로 빠짐)}. 홈 히어로 오른쪽 **최신 소식 슬라이드**(2026-09-26 추가). 영문 파일 없음(`*_en` 방식). **파일 순서 그대로** 표시(CMS가 새 항목을 맨 위에 넣음). 3초마다 자동 넘김(`SLIDE_MS`), 호버·포커스 시 멈춤, 동작 줄이기 설정이면 자동 넘김 없음. 게시할 슬라이드가 0개면 칸이 숨고 히어로가 예전 1단 모양으로 돌아간다(`.hero__inner.has-slides`가 붙을 때만 2단). CMS 업로드 폴더 `assets/uploads/slides/`.
+- **`slides.json`** — `slides[]`{image, title?, `title_en?`, text?, `text_en?`, link?, `until?`(YYYY-MM-DD — 지나면 자동으로 빠짐)}. 홈 히어로 오른쪽 **최신 소식 슬라이드**(2026-09-26 추가). 영문 파일 없음(`*_en` 방식). **파일 순서 그대로** 표시(CMS가 새 항목을 맨 위에 넣음). 4초마다 자동 넘김(`SLIDE_MS`), 호버·포커스 시 멈춤, 동작 줄이기 설정이면 자동 넘김 없음. 게시할 슬라이드가 0개면 칸이 숨고 히어로가 예전 1단 모양으로 돌아간다(`.hero__inner.has-slides`가 붙을 때만 2단). CMS 업로드 폴더 `assets/uploads/slides/`.
 - **`apply.json`** — `intro`, `items[]`{label,hint}, `faq[]`{q,a} — People→지원 탭 내용(CMS 편집 가능).
 - **`professor.json`** — 기본 정보 + `links[]`{label,url}(Google Scholar 등) + `education[]`, `careers[]`, `societies[]`, `media[]`{**date, source**, title, url}, `committees[]`.
 - **`members.json`** — `members[]`{name_ko, name_en, group("current"|"alumni"), level("PhD"|"Master"|"Undergraduate"|"Bachelor"), photo, email(재학생만 표시·졸업생은 값을 비움 — 화면에 안 나오며 sync 스크립트가 자동으로 비움), affiliation, period, grad_year, degree, thesis, `interests[]`}.

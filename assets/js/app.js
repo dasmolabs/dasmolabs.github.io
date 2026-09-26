@@ -516,7 +516,7 @@
      slides.json has no data/en/ copy — like photos.json, each slide carries its
      own *_en fields. Shown in file order (the CMS adds new ones at the top);
      a slide whose optional `until` date has passed drops out by itself. */
-  const SLIDE_MS = 3000;   // 2026-09-26 5초 → 3초 (요청)
+  const SLIDE_MS = 4000;   // 2026-09-26 5초 → 3초 → 4초 (요청)
 
   async function mountHeroSlides() {
     const box = $("#home-slides");
