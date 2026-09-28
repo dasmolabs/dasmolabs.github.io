@@ -229,13 +229,13 @@ ul { margin: 0; padding: 0; }
    hero-logo.webp = 원본 로고(검정 배경)의 검정을 투명으로 바꾼 것 — 네이비 위에 검은 네모가 안 뜬다.
    손잡이 두 개(휴대폰 포함 전 화면 공통) — 실제 화면을 보며 정하는 값:
      --hero-logo-alpha  진하기(0~1).  2026-09-28 .08 → .4 → .6("너무 흐리다"는 요청).
-     --hero-logo-blur   흐림(px, 0 = 또렷). 2.5px로 시작했다가 "흐리게 하지 말라"는 요청으로 0.
+     --hero-logo-blur   흐림(px, 0 = 또렷). 2.5px → 0 → .5px(처음 흐림의 20% 정도로 — 요청).
    참고(실측): 로고 속 글자("DASMO Labs"·태그라인)가 본문 줄 뒤에 걸리는 곳의 대비가
    .13부터 7:1, .4에서 3.2:1, .6에서 1.7:1까지 내려간다(본문 권장 4.5:1).
    흐림 없이 또렷하게 보이려고 이미지는 1200px(레티나 2배에서 최대 표시 폭 ≈565px를 채움).
    세로로 1.5rem씩 글 칸 밖으로 — 세로 쌓기(≤1080px)의 슬라이드 간격(2rem)을 넘지 않는다.
    isolation으로 z-index:-1이 .hero__text 안에 갇혀 글 뒤·히어로 배경 위에 놓인다. */
-.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .6; --hero-logo-blur: 0px; }
+.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .6; --hero-logo-blur: .5px; }
 .hero__text::before {
   content: ""; position: absolute; inset: -1.5rem 0; z-index: -1; pointer-events: none;
   background: url("../img/hero-logo.webp") center / contain no-repeat;
