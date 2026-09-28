@@ -227,15 +227,16 @@ ul { margin: 0; padding: 0; }
 .hero__inner { position: relative; z-index: 1; padding: 5.5rem 0 5rem; max-width: 760px; }
 /* 2026-09-28: 왼쪽 소개 글 뒤에 연구실 로고를 아주 옅게 깐다(워터마크).
    hero-logo.webp = 원본 로고(검정 배경)의 검정을 투명으로 바꾼 것 — 네이비 위에 검은 네모가 안 뜬다.
-   손잡이 두 개(휴대폰 포함 전 화면 공통) — 실제 화면을 보며 정하는 값:
+   손잡이 세 개(휴대폰 포함 전 화면 공통) — 실제 화면을 보며 정하는 값:
      --hero-logo-alpha  진하기(0~1).  2026-09-28 .08 → .4 → .6("너무 흐리다"는 요청).
      --hero-logo-blur   흐림(px, 0 = 또렷). 2.5px → 0 → .5px(처음 흐림의 20% 정도로 — 요청).
+     --hero-halo        글자 테두리 세기(0~1, 0 = 없음). 아래 "글자 테두리" 규칙 참고.
    참고(실측): 로고 속 글자("DASMO Labs"·태그라인)가 본문 줄 뒤에 걸리는 곳의 대비가
    .13부터 7:1, .4에서 3.2:1, .6에서 1.7:1까지 내려간다(본문 권장 4.5:1).
    흐림 없이 또렷하게 보이려고 이미지는 1200px(레티나 2배에서 최대 표시 폭 ≈565px를 채움).
    세로로 1.5rem씩 글 칸 밖으로 — 세로 쌓기(≤1080px)의 슬라이드 간격(2rem)을 넘지 않는다.
    isolation으로 z-index:-1이 .hero__text 안에 갇혀 글 뒤·히어로 배경 위에 놓인다. */
-.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .6; --hero-logo-blur: .5px; }
+.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .6; --hero-logo-blur: .5px; --hero-halo: .95; }
 .hero__text::before {
   content: ""; position: absolute; inset: -1.5rem 0; z-index: -1; pointer-events: none;
   background: url("../img/hero-logo.webp") center / contain no-repeat;
@@ -243,6 +244,21 @@ ul { margin: 0; padding: 0; }
 }
 /* 고대비(강제 색상) 모드는 히어로 배경 장식을 다 걷어내므로 워터마크도 뺀다 */
 @media (forced-colors: active) { .hero__text::before { display: none; } }
+/* 글자 테두리(2026-09-28) — 로고가 진해지자(.6) 로고의 흰 선·글자와 겹친 흰 글자가 묻혀서,
+   글자 둘레에 네이비 테두리를 둘러 로고와 떼어 놓는다. 세기는 --hero-halo(0~1, 0 = 테두리 없음).
+   1px 선명한 테두리를 8방향에 + 바깥으로 옅게 번지는 그림자. 흐린 그림자만으로는 본문처럼 가는
+   글자에서 효과가 약했다(실측 비교). 네이비 바탕 위에서는 테두리가 바탕에 묻혀 안 보인다.
+   그라데이션 제목(.accent)은 background-clip:text라 그림자가 글자 위에 칠해져 탁해지므로 뺀다. */
+.hero__text {
+  --hero-halo-c: rgba(6, 16, 32, var(--hero-halo));
+  text-shadow:
+    -1px -1px 0 var(--hero-halo-c), 0 -1px 0 var(--hero-halo-c), 1px -1px 0 var(--hero-halo-c),
+    -1px 0 0 var(--hero-halo-c), 1px 0 0 var(--hero-halo-c),
+    -1px 1px 0 var(--hero-halo-c), 0 1px 0 var(--hero-halo-c), 1px 1px 0 var(--hero-halo-c),
+    0 0 2px var(--hero-halo-c), 0 0 2px var(--hero-halo-c), 0 0 4px var(--hero-halo-c),
+    0 0 8px rgba(6, 16, 32, calc(var(--hero-halo) * .6));
+}
+.hero__text .accent { text-shadow: none; }
 .hero h1 {
   color: #fff; font-size: clamp(2.1rem, 5.4vw, 3.5rem); letter-spacing: -.02em; margin-bottom: .5rem;
 }
