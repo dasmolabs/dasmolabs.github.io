@@ -227,19 +227,18 @@ ul { margin: 0; padding: 0; }
 .hero__inner { position: relative; z-index: 1; padding: 5.5rem 0 5rem; max-width: 760px; }
 /* 2026-09-28: 왼쪽 소개 글 뒤에 연구실 로고를 아주 옅게 깐다(워터마크).
    hero-logo.webp = 원본 로고(검정 배경)의 검정을 투명으로 바꾼 것 — 네이비 위에 검은 네모가 안 뜬다.
-   글이 우선이라 불투명도 --hero-logo-alpha + 흐림. 진하기는 이 변수 하나로 조절한다.
-   .1을 넘기지 말 것 — .13이면 휴대폰에서 본문 대비가 7:1(AAA) 아래로 떨어진다(실측).
+   진하기는 --hero-logo-alpha 이 변수 하나로 조절한다(휴대폰 포함 전 화면 공통).
+   2026-09-28 .08로 시작했다가 "너무 흐리다"는 요청으로 .4를 시험 중 — 실제 화면을 보며 정하는 값.
+   참고: .13부터 휴대폰 본문 대비가 7:1(AAA) 아래로 내려간다(실측).
    흐림 2.5px는 로고 속 글자("DASMO Labs")가 본문 옆에 또렷한 '유령 글자'로 읽히지 않게 하는 값.
    세로로 1.5rem씩 글 칸 밖으로 — 세로 쌓기(≤1080px)의 슬라이드 간격(2rem)을 넘지 않는다.
    isolation으로 z-index:-1이 .hero__text 안에 갇혀 글 뒤·히어로 배경 위에 놓인다. */
-.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .08; }
+.hero__text { position: relative; isolation: isolate; --hero-logo-alpha: .4; }
 .hero__text::before {
   content: ""; position: absolute; inset: -1.5rem 0; z-index: -1; pointer-events: none;
   background: url("../img/hero-logo.webp") center / contain no-repeat;
   opacity: var(--hero-logo-alpha); filter: blur(2.5px);
 }
-/* 휴대폰은 글 칸이 좁고 길어 로고 글자가 본문 줄 바로 뒤에 온다 → 한 단계 더 옅게 */
-@media (max-width: 560px) { .hero__text { --hero-logo-alpha: .06; } }
 /* 고대비(강제 색상) 모드는 히어로 배경 장식을 다 걷어내므로 워터마크도 뺀다 */
 @media (forced-colors: active) { .hero__text::before { display: none; } }
 .hero h1 {
