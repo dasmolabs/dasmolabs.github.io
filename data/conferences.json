@@ -1,6 +1,13 @@
 {
   "conferences": [
     {
+      "category": "International",
+      "title": "An Evacuation Time Estimate Framework Incorporating Wind-Direction-Dependent Dose Distributions for Small Nuclear Facilities - A Map-Based Application to the EPZ of the Kijang Research Reactor -",
+      "conference": "The 35th Annual Conference of the Geographic Information System Association, International Association of Geo-informatics (IAG'i) 2026",
+      "conference_en": "",
+      "date": "2026. 10. 31"
+    },
+    {
       "category": "Domestic",
       "title": "도심지역 연구용원자로 방사선비상계획구역 대상 주민소개시간 추정 / Evacuation Time Estimate for Emergency Planning Zone of Research reactor in Urban area",
       "conference": "대한교통학회 2026 추계학술대회",
