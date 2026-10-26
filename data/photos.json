@@ -120,34 +120,6 @@
           "caption_en": "Presentation — Travel Time Reduction by Emergency Vehicle Signal Preemption (Best Paper Award)"
         }
       ]
-    },
-    {
-      "date": "2024-11-21",
-      "title": "한국ITS학회 부울경지회 세미나 — 부울경 스마트 모빌리티 사업의 현재와 미래",
-      "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar — Smart Mobility Projects in the Region",
-      "place": "부경대학교 환경해양관",
-      "place_en": "Pukyong National University, Busan",
-      "people": "",
-      "people_en": "",
-      "description": "부울경 지역의 스마트 모빌리티 사업 현황과 앞으로의 과제를 다룬 세미나입니다.",
-      "description_en": "A seminar on the current state and future tasks of smart mobility projects in the Busan-Ulsan-Gyeongnam region.",
-      "photos": [
-        {
-          "src": "assets/uploads/photos/20241121-its-seminar-01.jpg",
-          "caption": "",
-          "caption_en": ""
-        },
-        {
-          "src": "assets/uploads/photos/20241121-its-seminar-02.jpg",
-          "caption": "",
-          "caption_en": ""
-        },
-        {
-          "src": "assets/uploads/photos/20241121-its-seminar-03.jpg",
-          "caption": "",
-          "caption_en": ""
-        }
-      ]
     }
   ]
 }
