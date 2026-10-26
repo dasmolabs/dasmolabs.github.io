@@ -22,7 +22,28 @@
       "people_en": "",
       "description": "연구실에서 구두발표 2편과 포스터발표 1편, 총 3편을 발표하였습니다.",
       "description_en": "Our laboratory presented three papers: two oral presentations and one poster presentation.",
-      "photos": []
+      "photos": [
+        {
+          "src": "/assets/uploads/photos/20260917-kst95-01.jpg",
+          "caption": "학술발표회 참가 단체사진",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/20260917-kst95-02.jpg",
+          "caption": "포스터 발표 「도심지역 연구용원자로 방사선비상계획구역 대상 주민소개시간 추정」",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/20260917-kst95-03.jpg",
+          "caption": "김회경 교수 세션 발언",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/20260917-kst95-04.jpg",
+          "caption": "구두 발표 — AI 기반 부산진구 노인 보행 교통사고 피해 예상 모델 개발 : 부산광역시를 중심으로",
+          "caption_en": ""
+        }
+      ]
     },
     {
       "date": "2026-08-20",
@@ -37,7 +58,7 @@
       "photos": [
         {
           "src": "/assets/uploads/photos/20260820-its-seminar-01.jpg",
-          "caption": "",
+          "caption": "세미나 단체사진",
           "caption_en": ""
         },
         {
