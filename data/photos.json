@@ -5,13 +5,6 @@
       "title": "한국ITS학회 부울경지회 세미나 — 자율주행 시대 부산·울산·경남 대중교통의 나아갈 방향",
       "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar —The Future of Public Transportation in the Era of Autonomous Driving",
       "place": "도모헌(전 부산시장 관사)",
-      "place_en": "Domoheon (Former Busan Mayor’s Official {
-  "events": [
-    {
-      "date": "2026-08-20",
-      "title": "한국ITS학회 부울경지회 세미나 — 자율주행 시대 부산·울산·경남 대중교통의 나아갈 방향",
-      "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar —The Future of Public Transportation in the Era of Autonomous Driving",
-      "place": "도모헌(전 부산시장 관사)",
       "place_en": "Domoheon (Former Busan Mayor’s Official Residence)",
       "people": "",
       "people_en": "",
@@ -104,54 +97,6 @@
           "caption": "",
           "caption_en": ""
         }
-      ]
-    }
-  ]
-}
-Residence)",
-      "people": "",
-      "people_en": "",
-      "description": "자율주행 시대에 대응한 부산·울산·경남 대중교통 정책의 주요 과제를 논의하고, 민·관·산·학·연 협력을 통해 민선 9기 대중교통의 발전 방향을 모색합니다.",
-      "description_en": "Exploring the future of public transportation in Busan, Ulsan, and Gyeongnam through expert discussions and public-private collaboration in the era of autonomous driving.",
-      "photos": [
-        "/assets/uploads/photos/20260820-its-seminar-01.jpg",
-        "/assets/uploads/photos/20260820-its-seminar-02.jpg",
-        "/assets/uploads/photos/20260820-its-seminar-03.jpg",
-        "/assets/uploads/photos/20260820-its-seminar-04.jpg",
-        "/assets/uploads/photos/20260820-its-seminar-05.jpg"
-      ]
-    },
-    {
-      "date": "2026-03-13",
-      "title": "대한교통학회 2026 춘계학술대회 (제94회 학술발표회)",
-      "title_en": "2026 Spring Conference of the Korean Society of Transportation",
-      "place": "광주 김대중컨벤션센터",
-      "place_en": "Kimdaejung Convention Center, Gwangju",
-      "people": "김회경, 정지효, 이정빈, 조수린, 김동은",
-      "people_en": "",
-      "description": "연구실에서 3편을 발표했고, 「긴급차량 우선신호 운영방식에 따른 통행시간 단축 효과분석」이 우수논문상을 받았습니다.",
-      "description_en": "The lab presented three papers, and “Analysis of Travel Time Reduction Effects by Emergency Vehicle Signal Preemption Operation Modes” received the Best Paper Award.",
-      "photos": [
-        "/assets/uploads/photos/20260313-kst94-01.jpg",
-        "/assets/uploads/photos/20260313-kst94-02.jpg",
-        "/assets/uploads/photos/20260313-kst94-03.jpg",
-        "/assets/uploads/photos/20260313-kst94-04.jpg"
-      ]
-    },
-    {
-      "date": "2024-11-21",
-      "title": "한국ITS학회 부울경지회 세미나 — 부울경 스마트 모빌리티 사업의 현재와 미래",
-      "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar — Smart Mobility Projects in the Region",
-      "place": "부경대학교 환경해양관",
-      "place_en": "Pukyong National University, Busan",
-      "people": "",
-      "people_en": "",
-      "description": "부울경 지역의 스마트 모빌리티 사업 현황과 앞으로의 과제를 다룬 세미나입니다.",
-      "description_en": "A seminar on the current state and future tasks of smart mobility projects in the Busan-Ulsan-Gyeongnam region.",
-      "photos": [
-        "assets/uploads/photos/20241121-its-seminar-01.jpg",
-        "assets/uploads/photos/20241121-its-seminar-02.jpg",
-        "assets/uploads/photos/20241121-its-seminar-03.jpg"
       ]
     }
   ]
