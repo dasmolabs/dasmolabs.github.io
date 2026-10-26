@@ -1,6 +1,30 @@
 {
   "events": [
     {
+      "date": "2026-10-19",
+      "title": "2026 GANGNEUNG ITS WORLD CONGRESS",
+      "title_en": "",
+      "place": "",
+      "place_en": "Gangneung Olympic Park",
+      "people": "김회경, 정지효",
+      "people_en": "",
+      "description": "",
+      "description_en": "",
+      "photos": []
+    },
+    {
+      "date": "2026-09-17",
+      "title": "대한교통학회 2026 추계학술대회 (제95회 학술발표회)",
+      "title_en": "2026 Fall Conference of the Korean Society of Transportation",
+      "place": "강릉컨벤션센터",
+      "place_en": "Gangneung Convention Center",
+      "people": "김회경, 정지효, 이정빈, 이수현, 김은성, 김동은",
+      "people_en": "",
+      "description": "연구실에서 구두발표 2편과 포스터발표 1편, 총 3편을 발표하였습니다.",
+      "description_en": "Our laboratory presented three papers: two oral presentations and one poster presentation.",
+      "photos": []
+    },
+    {
       "date": "2026-08-20",
       "title": "한국ITS학회 부울경지회 세미나 — 자율주행 시대 부산·울산·경남 대중교통의 나아갈 방향",
       "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar —The Future of Public Transportation in the Era of Autonomous Driving",
