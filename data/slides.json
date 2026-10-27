@@ -1,6 +1,15 @@
 {
   "slides": [
     {
+      "image": "/assets/uploads/slides/KakaoTalk_20260918_110305920.jpg",
+      "title": "대한교통학회 2026 추계학술대회에서 3편 발표",
+      "title_en": "Three papers presented at the KST 2026 Fall Conference",
+      "text": "2026.09.17 ·강릉컨벤션센터",
+      "text_en": "September 17, 2026 · Gangneung Convention Center",
+      "link": "photos.html",
+      "until": ""
+    },
+    {
       "image": "/assets/uploads/slides/IMG_4039.JPG",
       "title": "한국ITS학회 부울경지회 세미나 참석",
       "title_en": "KITS Busan-Ulsan-Gyeongnam Chapter Seminar",
@@ -23,7 +32,8 @@
       "title_en": "Three papers presented at the KST 2026 Spring Conference",
       "text": "2026. 3. 13. · 광주 김대중컨벤션센터",
       "text_en": "Mar 13, 2026 · Gwangju",
-      "link": "photos.html"
+      "link": "photos.html",
+      "until": ""
     },
     {
       "image": "assets/uploads/photos/20241121-its-seminar-01.jpg",
