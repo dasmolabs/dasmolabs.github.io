@@ -517,6 +517,8 @@
      own *_en fields. Shown in file order (the CMS adds new ones at the top);
      a slide whose optional `until` date has passed drops out by itself. */
   const SLIDE_MS = 3000;   // 2026-09-26 5초 → 3초 → 4초 (요청)
+   const FIRST_SLIDE_MS = 1000;   // 첫 사진만 1초
+let firstSlideDone = false;
 
   async function mountHeroSlides() {
     const box = $("#home-slides");
@@ -580,7 +582,14 @@
     function arm() {
       clearInterval(timer);
       timer = null;
-      if (playing && !hover) timer = setInterval(() => { if (!document.hidden) show(cur + 1); }, SLIDE_MS);
+    if (playing && !hover) {
+  if (!firstSlideDone) {
+    firstSlideDone = true;
+    timer = setTimeout(() => { show(cur + 1); arm(); }, FIRST_SLIDE_MS);
+    return;
+  }
+  timer = setInterval(() => { if (!document.hidden) show(cur + 1); }, SLIDE_MS);
+}
     }
     function setPlaying(p) {
       playing = p;
