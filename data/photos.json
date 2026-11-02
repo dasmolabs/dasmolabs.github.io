@@ -1,6 +1,44 @@
 {
   "events": [
     {
+      "date": "2026-10-31",
+      "title": "IAG'i 2026 도쿄 학회",
+      "title_en": "IAG'i 2026 Conference in Tokyo",
+      "place": "도쿄 공업대학",
+      "place_en": "Tokyo Institute of Technology",
+      "people": "김회경, 정지효, 이정빈, 이수현, 김은성, 김동은",
+      "people_en": "",
+      "description": "연구실에서 1편을 발표했습니다.",
+      "description_en": "",
+      "photos": [
+        {
+          "src": "/assets/uploads/photos/01.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/02.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/03.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/04 (2).jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/05.jpg",
+          "caption": "",
+          "caption_en": ""
+        }
+      ]
+    },
+    {
       "date": "2026-10-19",
       "title": "2026 GANGNEUNG ITS WORLD CONGRESS",
       "title_en": "",
