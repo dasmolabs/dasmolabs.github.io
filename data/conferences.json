@@ -1,6 +1,13 @@
 {
   "conferences": [
     {
+      "category": "Domestic",
+      "title": "15분 도시의 실질적 구현을 위한 새로운 모빌리티 전략 : 목적 기반 모빌리티(PBV) 플러그인 스테이션을 중심으로 / A New Mobility Strategy for Realizing the 15-Minute City: Focusing on Purpose-Built Vehicle (PBV) Plug-in Stations",
+      "conference": "한국ITS학회 2026년도 추계학술대회",
+      "conference_en": "The 2026 Korean Society of ITS Fall Conference",
+      "date": "2026. 11. 12"
+    },
+    {
       "category": "International",
       "title": "An Evacuation Time Estimate Framework Incorporating Wind-Direction-Dependent Dose Distributions for Small Nuclear Facilities - A Map-Based Application to the EPZ of the Kijang Research Reactor -",
       "conference": "The 35th Annual Conference of the Geographic Information System Association, International Association of Geo-informatics (IAG'i) 2026",
