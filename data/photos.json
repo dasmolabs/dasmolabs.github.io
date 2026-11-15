@@ -10,7 +10,33 @@
       "people_en": "",
       "description": "연구실에서 구두발표 2편을 발표하였습니다.",
       "description_en": "",
-      "photos": []
+      "photos": [
+        {
+          "src": "/assets/uploads/photos/01-j.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/02-j.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/03-j.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/04-j.jpg",
+          "caption": "",
+          "caption_en": ""
+        },
+        {
+          "src": "/assets/uploads/photos/05-j.jpg",
+          "caption": "",
+          "caption_en": ""
+        }
+      ]
     },
     {
       "date": "2026-10-31",
