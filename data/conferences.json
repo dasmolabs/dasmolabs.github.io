@@ -2,6 +2,13 @@
   "conferences": [
     {
       "category": "Domestic",
+      "title": "AI를 활용한 교차로 시각 복잡도 정량화와 교통사고 발생 간 관계 분석 / Quantifying Intersection Visual Complexity Using AI and Analyzing Its Relationship with Traffic Crash Occurrence",
+      "conference": "한국ITS학회 2026년도 추계학술대회",
+      "conference_en": "The 2026 Korean Society of ITS Fall Conference",
+      "date": "2026. 11. 12"
+    },
+    {
+      "category": "Domestic",
       "title": "부울경 지역 맞춤형 자율주행 서비스 중요도 분석 : AHP 기반 전문가 조사를 중심으로 / Prioritizing Region-Specific Autonomous Driving Services in the Busan-Ulsan-Gyeongnam Region : An AHP-Based Expert Survey",
       "conference": "한국ITS학회 2026년도 추계학술대회",
       "conference_en": "The 2026 Korean Society of ITS Fall Conference",
