@@ -128,7 +128,7 @@
     slPause: "자동 넘김 멈춤", slPlay: "자동 넘김 재생", slGo: "소식 보기",
     pubLabels: { International: "International Journals & Proceedings", Domestic: "국내 논문", Other: "기타", Books: "저서" },
     pubChips: { International: "International", Domestic: "Domestic", Other: "기타", Books: "저서" },
-    confLabels: { International: "International", Domestic: "Domestic (국내)" },
+    confLabels: { International: "International", Domestic: "Domestic" },
     patLabels: { Application: "출원 (Application)", Registration: "등록 (Registration)", Software: "프로그램·저작권 (Software)" },
     patChips: { Application: "출원", Registration: "등록", Software: "프로그램" },
     patHead: ["No.", "지식재산권명", "국내외", "구분", "일자", "번호", "발명인"],
