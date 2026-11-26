@@ -4,6 +4,11 @@
 #  main 브랜치에 push가 들어오면 사이트 파일을 그대로 업로드해 배포합니다.
 #  빌드 단계 없는 정적 사이트라 콘텐츠를 가공하지 않고 그대로 게시합니다.
 #  (레거시 Jekyll 빌더의 간헐적 "Page build failed"를 피하기 위해 전환함.)
+#
+#  2026-11 수정: 업로드와 배포를 한 job 안에서 연달아 실행하면
+#  deploy-pages가 방금 올린 artifact를 못 찾는 GitHub 쪽 문제
+#  ("No artifacts named github-pages were found")가 자주 발생해,
+#  build / deploy 두 job으로 분리하고 배포 전 대기 + 재시도를 넣음.
 # ===========================================================================
 name: Deploy to GitHub Pages
 
@@ -23,10 +28,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,6 +62,7 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             --exclude='node_modules' \
+            --exclude='_site' \
             ./ _site/
 
       - name: Setup Pages
@@ -70,10 +73,31 @@ jobs:
         with:
           path: _site
 
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for artifact listing
+        run: sleep 15
+
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v4
         with:
-          # GitHub Pages 백엔드가 느릴 때 10분(기본) 안에 게시를 못 끝내
-          # 배포가 취소되는 일이 있어, 대기 시간을 30분으로 늘림.
-          timeout: 1800000
+          # GitHub Pages 백엔드가 느릴 때 기본 대기 시간 안에 못 끝내는 일이 있어 최대치로.
+          timeout: 600000
+
+      - name: Wait before retry
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+
+      - name: Deploy to GitHub Pages (retry)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 600000
